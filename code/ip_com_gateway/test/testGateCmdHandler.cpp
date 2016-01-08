@@ -124,12 +124,12 @@ void CTestGateCmdHandler::testGenDataFromText(void)
 {
 #if 0
     printf("======================test GenDataFromText=====================\n");
-    int genDataFromText(const char* data_text, char* out_data, int* datalen);
 
     char out_data[256] = {0};
     int datalen = 0;
     int ret = 0;
-    ret = m_inst.genDataFromText("0x01294    0x02    0x03   0x04 0x05 0x06",
+    CGateCmdHandler* p_inst = CGateCmdHandler::getInstance();
+    ret = p_inst->genDataFromText("0x01294    0x02    0x03   0x04 0x05 0x06",
         out_data, &datalen);
 
     if (ret)
@@ -263,11 +263,11 @@ void CTestGateCmdHandler::testOutput(void)
 
 void CTestGateCmdHandler::test(void)
 {
-    //testTansDataFromRule();
-    //testGenDataFromText();
+ //   testTansDataFromRule();
+    testGenDataFromText();
     //testCmdHandleSingleExp();
     //testInit();
-    testCmdHandle();
+    //testCmdHandle();
    // testGetTermParas();
     //testOutput();
 }

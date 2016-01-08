@@ -232,15 +232,59 @@ int sendTcpData(const char* peerIPAddr, int port,
     if(sockfd == -1) 
         return -1;
 
+    //setup timeout    
+    struct timeval timeout = {3, 0}; 
+
+#ifdef _WIN32
+
+    int nNetTimeout = 3000;
+    setsockopt(sockfd, SOL_SOCKET, SO_SNDTIMEO, (char *)&nNetTimeout, sizeof(int));
+    setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, (char *)&nNetTimeout, sizeof(int));
+    
+#else
+
+    setsockopt(sockfd, SOL_SOCKET, SO_SNDTIMEO, (char *)&timeout, sizeof(timeout));
+    setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout, sizeof(timeout));
+
+#endif
+
     //2 通信地址
     struct sockaddr_in addr;
     addr.sin_family = AF_INET;//与socket一致
     addr.sin_port = htons(port);//改端口
     addr.sin_addr.s_addr = inet_addr(peerIPAddr);//改IP
 
+    //set up unblock mode
+
+#ifdef _WIN32
+
+    unsigned long ul = 1;
+    ret = ioctlsocket(sockfd, FIONBIO, (unsigned long*)&ul);
+    if (ret == SOCKET_ERROR) {
+        closesocket(sockfd);
+        return -1;
+    }
+#else
+    int flag = fcntl(sockfd, F_GETFL, 0); 
+    if (fcntl(sockfd, F_SETFL, flag | O_NONBLOCK) == -1) {
+        close(sockfd);
+        return -1;
+    }
+
+#endif
+
     //3 connect
-    ret = connect(sockfd, (sockaddr*)&addr, sizeof(addr));
-    if (ret == -1) {
+    connect(sockfd, (sockaddr*)&addr, sizeof(addr));
+
+    //select
+    fd_set writeSet;
+
+    FD_ZERO(&writeSet);
+    FD_SET(sockfd, &writeSet);
+    timeout.tv_sec = 3; //connect timeout
+    timeout.tv_usec = 0;
+    ret = select(sockfd + 1, 0, &writeSet, 0, &timeout);
+    if ( ret <= 0 ) {
 #ifdef _WIN32
         closesocket(sockfd);
 #else
@@ -248,6 +292,25 @@ int sendTcpData(const char* peerIPAddr, int port,
 #endif
         return -1;
     }
+
+    //set back to block mode
+#ifdef _WIN32
+
+    ul = 0 ;
+    ret = ioctlsocket(sockfd, FIONBIO, (unsigned long*)&ul);
+    if(ret == SOCKET_ERROR) {
+        closesocket(sockfd);
+        return -1;
+    }
+
+#else     
+
+    if (fcntl(sockfd, F_SETFL, flag) == -1) {
+        close(sockfd);
+        return -1;
+    }
+
+#endif
 
     //4 send
     if (send(sockfd, p_data, dataLen, 0) <= 0)
@@ -261,7 +324,7 @@ int sendTcpData(const char* peerIPAddr, int port,
     close(sockfd);
 #endif
              
-    return ret;
+    return ret;    
 }
 
 /*-------------------------------------------------------------------
@@ -782,3 +845,12 @@ void EasyMath::longToBytes(long val, char* p_bytes)
     p_bytes[2] = (val >> (8 * 2)) & 0xFF;
     p_bytes[3] = (val >> (8 * 3)) & 0xFF;
 }
+
+#ifndef _WIN32
+
+int stricmp(const char* s1, const char* s2)
+{
+    return strcasecmp(s1, s2);
+}
+
+#endif

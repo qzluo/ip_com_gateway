@@ -5,6 +5,8 @@
  Date: 2015-12-31
 *********************************************************************/
 
+#include <stdio.h>
+#include <string.h>
 #include "termioManager.h"
 #include "tcplistener.h"
 
@@ -107,7 +109,7 @@ int CTermManager::addTermFromText(const char* exp)
         //get port, ip
         data.type = TERMINAL_IO_TYPE_TCP;
         strcpy(data.desc, TERMINAL_IO_DESC_TCP);
-        strcpy(data.ip, "192.168.1.150");
+        strcpy(data.ip, "192.168.1.158");
 #ifndef _WIN32
         getLocalIp(data.ip);
 #endif    

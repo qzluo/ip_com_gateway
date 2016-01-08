@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "platcomm.h"
 #include "tcplistener.h"
 #include "termioManager.h"
@@ -5,6 +6,7 @@
 #include "testTcpListener.h"
 #include "testTermioManager.h"
 #include "testGateCmdHandler.h"
+#include "logsys.h"
 
 int main(int argc, char* argv[])
 {
@@ -14,22 +16,10 @@ int main(int argc, char* argv[])
     if (initObj())
         return -1;
 
-   /* 
-    CTestTermioManager tester;
-    tester.test();   
-    */
-   /*
-    CTestGateCmdHandler tester;
-    tester.test();
-*/
-
-    /*
-    CTermManager manager;
-    manager.init();
-*/  
+    loginit("log.dat", LOG_DEBUG);
 
     while (1) {
-        platSleep(1);
+        platSleep(10);
     }
 
     deinitSocket();

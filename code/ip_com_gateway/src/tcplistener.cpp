@@ -35,7 +35,7 @@ static void* TcpListenThreadFun(void* pM)
 
     CTcpSocket tcpServer;
 
-    printf("Start Tcp server. ip = %s, pord = %d\n",
+    printf("Start Tcp server. ip = %s, port = %d\n",
         p_data->ip, p_data->port);
 
     if (tcpServer.startListen(p_data->ip, p_data->port) == -1)               

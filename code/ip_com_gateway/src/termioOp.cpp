@@ -5,9 +5,17 @@
  Date: 2016-1-6
 *********************************************************************/
 
+#ifndef _WIN32
+#include <unistd.h>
+#include <fcntl.h>
+#endif
+
+#include <stdio.h>
+#include <string.h>
 #include "termioOp.h"
 #include "platcomm.h"
 #include "serialCom.h"
+#include "logsys.h"
 
 static TermOpObj s_opObjs[] = {
     {TERMINAL_IO_TYPE_TCP, TcpOutput},

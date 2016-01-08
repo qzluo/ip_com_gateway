@@ -142,7 +142,6 @@ int getFileSize(const char* p_filename);
 -------------------------------------------------------------------*/
 int easyCreateThread(void* (* start_routine)(void*), void* arg);
 
-
 //difine a mutex class for both linux and windows
 class EasyMutex
 {
@@ -226,5 +225,9 @@ public:
     static void intToBytes(int val, char* p_bytes);
     static void longToBytes(long val, char* p_bytes);
 };
+
+#ifndef _WIN32
+int stricmp(const char* s1, const char* s2);
+#endif
 
 #endif  //__PLATCOMM_H__

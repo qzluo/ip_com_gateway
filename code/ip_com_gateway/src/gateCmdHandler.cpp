@@ -179,7 +179,9 @@ int CGateCmdHandler::tansDataFromRule(const char* expression,
     if (!expression)
         return -1;
 
-    sscanf(expression, "%[^:]%*c%[^:]%*c%[^:]%*c%[^\n\0]",
+    //check : count
+
+    sscanf(expression, "%[^:]%*c%[^:]%*c%[^:]%*c%[^\r\n]",
         szSrcInfoFromExp, szTarInfoFromExp,
         szInDataFromExp, szOutDataFromExp);
 

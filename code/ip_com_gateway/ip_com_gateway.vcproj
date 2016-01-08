@@ -41,6 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="./include;./test"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -171,43 +172,47 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\gateCmdHandler.cpp"
+				RelativePath=".\src\gateCmdHandler.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\main.cpp"
+				RelativePath=".\src\logsys.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\platcomm.cpp"
+				RelativePath=".\src\main.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\serialCom.cpp"
+				RelativePath=".\src\platcomm.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\tcplistener.cpp"
+				RelativePath=".\src\serialCom.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\termioManager.cpp"
+				RelativePath=".\src\tcplistener.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\termioOp.cpp"
+				RelativePath=".\src\termioManager.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\testGateCmdHandler.cpp"
+				RelativePath=".\src\termioOp.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\testTcpListener.cpp"
+				RelativePath=".\test\testGateCmdHandler.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\testTermioManager.cpp"
+				RelativePath=".\test\testTcpListener.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\test\testTermioManager.cpp"
 				>
 			</File>
 		</Filter>
@@ -217,43 +222,47 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\cmdParser.h"
+				RelativePath=".\include\cmdParser.h"
 				>
 			</File>
 			<File
-				RelativePath=".\gateCmdHandler.h"
+				RelativePath=".\include\gateCmdHandler.h"
 				>
 			</File>
 			<File
-				RelativePath=".\platcomm.h"
+				RelativePath=".\include\logsys.h"
 				>
 			</File>
 			<File
-				RelativePath=".\serialCom.h"
+				RelativePath=".\include\platcomm.h"
 				>
 			</File>
 			<File
-				RelativePath=".\tcplistener.h"
+				RelativePath=".\include\serialCom.h"
 				>
 			</File>
 			<File
-				RelativePath=".\termioManager.h"
+				RelativePath=".\include\tcplistener.h"
 				>
 			</File>
 			<File
-				RelativePath=".\termioOp.h"
+				RelativePath=".\include\termioManager.h"
 				>
 			</File>
 			<File
-				RelativePath=".\testGateCmdHandler.h"
+				RelativePath=".\include\termioOp.h"
 				>
 			</File>
 			<File
-				RelativePath=".\testTcpListener.h"
+				RelativePath=".\test\testGateCmdHandler.h"
 				>
 			</File>
 			<File
-				RelativePath=".\testTermioManager.h"
+				RelativePath=".\test\testTcpListener.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test\testTermioManager.h"
 				>
 			</File>
 		</Filter>
