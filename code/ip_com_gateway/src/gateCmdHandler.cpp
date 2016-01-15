@@ -350,7 +350,7 @@ int CGateCmdHandler::addExpression(const char* exp)
     if (!p_data)
         return -1;
 
-    strcpy(p_data, exp);
+    sscanf(exp, "%*[^:]%*c%[^\r\n]", p_data);
     m_listTransExp.push_back(p_data);
 
     return 0;
